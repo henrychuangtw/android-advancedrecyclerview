@@ -16,6 +16,7 @@
 
 package com.h6ah4i.android.widget.advrecyclerview.event;
 
+import android.support.annotation.NonNull;
 import android.support.v7.widget.RecyclerView;
 
 import java.util.ArrayList;
@@ -98,12 +99,8 @@ public abstract class BaseRecyclerViewEventDistributor<T> {
      *
      * @return True if the listener object successfully added, otherwise false. Also returns true if have already been added.
      */
-    public boolean add(T listener, int index) {
+    public boolean add(@NonNull T listener, int index) {
         final String METHOD_NAME = "add()";
-
-        if (listener == null) {
-            throw new IllegalArgumentException("can not specify null for the listener");
-        }
 
         verifyIsNotReleased(METHOD_NAME);
         verifyIsNotPerformingClearMethod(METHOD_NAME);
@@ -137,12 +134,8 @@ public abstract class BaseRecyclerViewEventDistributor<T> {
      *
      * @return True for successfully removed the listener object, otherwise false
      */
-    public boolean remove(T listener) {
+    public boolean remove(@NonNull T listener) {
         final String METHOD_NAME = "remove()";
-
-        if (listener == null) {
-            throw new IllegalArgumentException("can not specify null for the listener");
-        }
 
         verifyIsNotPerformingClearMethod(METHOD_NAME);
         verifyIsNotReleased(METHOD_NAME);
@@ -209,7 +202,7 @@ public abstract class BaseRecyclerViewEventDistributor<T> {
         if (mListeners != null) {
             return mListeners.size();
         } else {
-            return mListeners.size();
+            return 0;
         }
     }
 

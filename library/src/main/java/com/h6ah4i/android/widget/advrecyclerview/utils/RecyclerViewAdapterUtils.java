@@ -16,6 +16,7 @@
 
 package com.h6ah4i.android.widget.advrecyclerview.utils;
 
+import android.support.annotation.Nullable;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
 import android.view.ViewParent;
@@ -29,7 +30,8 @@ public class RecyclerViewAdapterUtils {
      * @param view Child view of the RecyclerView's item
      * @return Parent RecyclerView instance
      */
-    public static RecyclerView getParentRecyclerView(View view) {
+    @Nullable
+    public static RecyclerView getParentRecyclerView(@Nullable View view) {
         if (view == null) {
             return null;
         }
@@ -48,18 +50,13 @@ public class RecyclerViewAdapterUtils {
      * @param view Child view of the RecyclerView's item
      * @return Item view
      */
-    public static View getParentViewHolderItemView(View view) {
-        if (view == null) {
+    @Nullable
+    public static View getParentViewHolderItemView(@Nullable View view) {
+        RecyclerView rv = getParentRecyclerView(view);
+        if (rv == null) {
             return null;
         }
-        ViewParent parent = view.getParent();
-        if (parent instanceof RecyclerView) {
-            return view;
-        } else if (parent instanceof View) {
-            return getParentViewHolderItemView((View) parent);
-        } else {
-            return null;
-        }
+        return rv.findContainingItemView(view);
     }
 
     /**
@@ -67,14 +64,12 @@ public class RecyclerViewAdapterUtils {
      * @param view Child view of the RecyclerView's item
      * @return ViewHolder
      */
-    public static RecyclerView.ViewHolder getViewHolder(View view) {
+    @Nullable
+    public static RecyclerView.ViewHolder getViewHolder(@Nullable View view) {
         RecyclerView rv = getParentRecyclerView(view);
-        View rvChild = getParentViewHolderItemView(view);
-
-        if (rv != null && rvChild != null) {
-            return rv.getChildViewHolder(rvChild);
-        } else {
+        if (rv == null) {
             return null;
         }
+        return rv.findContainingViewHolder(view);
     }
 }

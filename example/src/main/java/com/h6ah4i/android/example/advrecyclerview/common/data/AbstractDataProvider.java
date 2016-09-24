@@ -25,13 +25,11 @@ public abstract class AbstractDataProvider {
 
         public abstract int getViewType();
 
-        public abstract int getSwipeReactionType();
-
         public abstract String getText();
 
-        public abstract void setPinnedToSwipeLeft(boolean pinned);
+        public abstract void setPinned(boolean pinned);
 
-        public abstract boolean isPinnedToSwipeLeft();
+        public abstract boolean isPinned();
     }
 
     public abstract int getCount();
@@ -41,6 +39,8 @@ public abstract class AbstractDataProvider {
     public abstract void removeItem(int position);
 
     public abstract void moveItem(int fromPosition, int toPosition);
+
+    public abstract void swapItem(int fromPosition, int toPosition);
 
     public abstract int undoLastRemoval();
 }
